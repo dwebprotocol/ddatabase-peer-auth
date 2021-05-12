@@ -1,6 +1,6 @@
-# hypercore-peer-auth
+# ddatabase-peer-auth
 
-Authenticate a hypercore-protocol connection by signing the NOISE public keys with a static key pair.
+Authenticate a @ddatabase/protocol connection by signing the NOISE public keys with a static key pair.
 
 See [test.js](./test.js) for an example.
 
@@ -8,9 +8,9 @@ See [test.js](./test.js) for an example.
 
 ```javascript
 
-const hyperswarm = require('hyperswarm')
-const Protocol = require('hypercore-protocol')
-const crypto = require('hypercore-crypto')
+const dswarm = require('dswarm')
+const Protocol = require('@ddatabase/protocol')
+const crypto = require('@ddatabase/crypto')
 const auth = require('.')
 
 // each peer/device has a keypair that is stored (or derived)
@@ -21,7 +21,7 @@ const IDENTITY = crypto.keyPair()
 // it also maintains a list of the pubkeys of peers it wants to connect with
 const ALLOWED_KEYS = []
 
-const swarm = hyperswarm()
+const swarm = dswarm()
 swarm.on('connection', onconnection)
 function onconnection (socket, details) {
   const isInitiator = !!details.client

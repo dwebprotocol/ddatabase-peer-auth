@@ -1,6 +1,6 @@
 const tape = require('tape')
-const Protocol = require('hypercore-protocol')
-const crypto = require('hypercore-crypto')
+const Protocol = require('@ddatabase/protocol')
+const crypto = require('@ddatabase/crypto')
 const { pipeline } = require('stream')
 const authenticatedProtocol = require('.')
 

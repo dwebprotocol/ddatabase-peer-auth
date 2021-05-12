@@ -1,4 +1,4 @@
-const hcrypto = require('hypercore-crypto')
+const dcrypto = require('@ddatabase/crypto')
 const sodium = require('sodium-universal')
 
 const SIGN_BYTES = sodium.crypto_sign_BYTES // 32
@@ -10,15 +10,15 @@ module.exports = function authenticatedProtocol (protocol, opts) {
   // TODO: Not sure if this is considered "public".
   const noisePublicKey = protocol.state.publicKey
 
-  const ext = protocol.registerExtension('hypercore-auth-extension', hypercoreAuthExtension)
+  const ext = protocol.registerExtension('ddatabase-auth-extension', ddatabaseAuthExtension)
 
   // First message a peer sends on the stream: A buffer that contains my auth pubkey plus
   // my noise pubkey for this connection signed with my auth pubkeys's secret key.
-  const signature = hcrypto.sign(noisePublicKey, authKeyPair.secretKey)
+  const signature = dcrypto.sign(noisePublicKey, authKeyPair.secretKey)
   const message = Buffer.concat([authKeyPair.publicKey, signature])
   ext.send(message)
 
-  function hypercoreAuthExtension (ext) {
+  function ddatabaseAuthExtension (ext) {
     return {
       // First message I receive on the stream: The buffer from my peer (as above).
       onmessage (message) {
@@ -27,7 +27,7 @@ module.exports = function authenticatedProtocol (protocol, opts) {
 
         // First of all: Verify if the signature matches (proof that the other end
         // knows the secret key for the auth key).
-        var ok = hcrypto.verify(protocol.remotePublicKey, signature, authKey)
+        var ok = dcrypto.verify(protocol.remotePublicKey, signature, authKey)
         if (!ok) return protocol.destroy(new Error('Bad signature on auth key'))
 
         // Now call the onauthenticate hook that lets the application allow or deny

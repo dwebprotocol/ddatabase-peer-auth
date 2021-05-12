@@ -1,5 +1,5 @@
 {
-  "name": "hypercore-peer-auth",
+  "name": "@ddatabase/peer-auth",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -9,14 +9,14 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "hypercore": "^8.4.0",
-    "hypercore-crypto": "^1.0.0",
+    "@ddatabase/crypto": "^1.0.0",
+    "ddatabase": "^10.0.0",
     "pump": "^3.0.0",
     "tape": "^4.11.0"
   },
   "dependencies": {
-    "sodium-universal": "^2.0.0",
-    "hypercore-protocol": "^7.7.1"
+    "@ddatabase/protocol": "^1.0.0",
+    "sodium-universal": "^2.0.0"
   },
   "description": ""
 }
